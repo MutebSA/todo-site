@@ -118,6 +118,27 @@ All data is saved locally using:
 localStorage
 
 ---
+## 🏗️ Folder Structure
+
+/todo-site
+│
+├── index.html # Main UI
+├── style.css # Full styling
+├── app.js # App logic
+└── README.md # Documentation
+
+yaml
+نسخ الكود
+
+---
+
+## 📦 Run Locally
+1. Download the project  
+2. Open `index.html` in any browser  
+3. The app runs instantly — no server required
+
+---
+
 
 ## 👨‍💻 Developer
 **MutebSA**
