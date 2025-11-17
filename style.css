@@ -865,3 +865,87 @@ body {
   padding: 2px 6px;
   font-size: 12px;
 }
+
+/* ===== Improved Sidebar Design ===== */
+
+.sidebar {
+  width: 240px;
+  background: radial-gradient(circle at top, #111827 0, #020617 55%);
+  border-left: 1px solid rgba(148, 163, 184, 0.15);
+  padding: 16px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 0 25px rgba(15, 23, 42, 0.7);
+}
+
+/* ترتيب الأزرار وتصغير المسافات بينها */
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* شكل زر القائمة */
+.nav-item {
+  width: 100%;
+  padding: 9px 14px;
+  border-radius: 12px;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--text, #e5e7eb);
+  font-size: 14px;
+  text-align: right;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  transition:
+    background 0.18s ease,
+    transform 0.12s ease,
+    box-shadow 0.18s ease,
+    color 0.18s ease;
+}
+
+/* لمسة خفيفة لما تمر الماوس */
+.nav-item:hover {
+  background: rgba(148, 163, 184, 0.08);
+  transform: translateX(-2px);
+  box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.2);
+}
+
+/* الزر النشط (اللي انت فيه الآن) */
+.nav-item.active {
+  position: relative;
+  background: linear-gradient(135deg, #4f46e5, #8b5cf6);
+  color: #f9fafb;
+  box-shadow:
+    0 0 0 1px rgba(129, 140, 248, 0.7),
+    0 8px 18px rgba(15, 23, 42, 0.8);
+  transform: translateX(-3px);
+}
+
+/* مؤشر صغير على طرف الزر النشط (ناحية المحتوى) */
+.nav-item.active::before {
+  content: "";
+  position: absolute;
+  left: 6px;            /* لأن السايدبار يمين، نخلي الخط يسار */
+  top: 8px;
+  bottom: 8px;
+  width: 3px;
+  border-radius: 999px;
+  background: #e5e7eb;
+}
+
+/* تصغير زر الإعدادات وغيره لو كان آخر القائمة */
+.sidebar nav .nav-item:last-child {
+  margin-top: 6px;
+  opacity: 0.9;
+}
+
+/* لو حسيت النص ملزق في边 اليمين */
+.sidebar {
+  padding-right: 14px;
+}
