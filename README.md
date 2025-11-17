@@ -117,18 +117,6 @@ Organize your day, track your tasks, focus sessions, study plans, and achievemen
 All data is saved locally using:
 localStorage
 
----
-## 🏗️ Folder Structure
-
-/todo-site
-│
-├── index.html # Main UI
-├── style.css # Full styling
-├── app.js # App logic
-└── README.md # Documentation
-
-yaml
-نسخ الكود
 
 ---
 
