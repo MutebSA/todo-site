@@ -211,19 +211,59 @@ function showAuthIfNeeded() {
 // ========== Rendering Shell ==========
 
 function updateTopbarUser() {
-  $("#user-name-label").textContent = state.user.name || "متعب";
-  $("#user-stage-label").textContent =
-    state.user.stage === "highschool"
-      ? "طالب ثانوي"
-      : state.user.stage === "university"
-      ? state.user.major
-        ? `طالب ${state.user.major}`
-        : "طالب جامعي"
-      : "طالب";
-  const initials = (state.user.name || "M").trim().charAt(0).toUpperCase();
-  $("#user-avatar-circle").textContent = initials;
-  $("#streak-count").textContent = state.streak.days || 0;
+  const name  = state.user.name  || "";
+  const stage = state.user.stage || "";
+  const major = state.user.major || "";
+
+  // 🔹 البروفايل اللي يسار (كما هو)
+  const userNameLabel  = $("#user-name-label");
+  const userStageLabel = $("#user-stage-label");
+  const avatarCircle   = $("#user-avatar-circle");
+  const streakEl       = $("#streak-count");
+
+  if (userNameLabel) {
+    userNameLabel.textContent = name || "متعب";
+  }
+
+  if (userStageLabel) {
+    userStageLabel.textContent =
+      stage === "highschool"
+        ? "طالب ثانوي"
+        : stage === "university"
+        ? (major ? `طالب ${major}` : "طالب جامعي")
+        : "طالب";
+  }
+
+  if (avatarCircle) {
+    const initials = (name || "M").trim().charAt(0).toUpperCase();
+    avatarCircle.textContent = initials;
+  }
+
+  if (streakEl) {
+    streakEl.textContent = state.streak.days || 0;
+  }
+
+  // 🔹 الهيدر اليمين (اللي أنت تقصده)
+  const headerNameSpan  = document.getElementById("headerName");
+  const headerLevelSpan = document.getElementById("headerLevel");
+
+  if (headerNameSpan) {
+    headerNameSpan.textContent = name || "Student";
+  }
+
+  if (headerLevelSpan) {
+    let levelText;
+    if (stage === "highschool") {
+      levelText = "طالب ثانوي";
+    } else if (stage === "university") {
+      levelText = major ? `طالب ${major}` : "طالب جامعي";
+    } else {
+      levelText = "طالب";
+    }
+    headerLevelSpan.textContent = levelText;
+  }
 }
+
 
 function applyTheme() {
   if (state.settings.theme === "light") {
@@ -1071,6 +1111,7 @@ function renderGoals() {
   $("#goals-add-btn").addEventListener("click", () => openGoalModal());
 }
 
+
 function renderProfile() {
   const content = $("#content");
   content.innerHTML = `
@@ -1193,6 +1234,7 @@ function renderSettings() {
   });
 }
 
+
 // ========== Modals Logic ==========
 
 function openTaskModal() {
@@ -1295,46 +1337,6 @@ function openGoalModal() {
     }
   );
 }
-
-function copyShareLink() {
-  // حول tasks إلى نص
-  const json = JSON.stringify(tasks);
-  // Base64 + encode
-  const encoded = encodeURIComponent(btoa(json));
-
-  const url = `${location.origin}${location.pathname}?list=${encoded}`;
-
-  // نسخ للحافظة (لو المتصفح يسمح)
-  navigator.clipboard.writeText(url)
-    .then(() => {
-      document.getElementById('share-status').textContent = "تم نسخ الرابط! ارسله للي تبي 👍";
-    })
-    .catch(() => {
-      document.getElementById('share-status').textContent = "هذا هو الرابط:\n" + url;
-    });
-}
-
-function loadSharedListIfExists() {
-  const params = new URLSearchParams(location.search);
-  const encoded = params.get("list");
-  if (!encoded) return; // مافي قائمة مشتركة
-
-  try {
-    const json = atob(decodeURIComponent(encoded));
-    const sharedTasks = JSON.parse(json);
-
-    // تأكد إنها مصفوفة قبل ما تستعملها
-    if (Array.isArray(sharedTasks)) {
-      tasks = sharedTasks;
-      renderTasks(); // الدالة اللي ترسم التودو في الصفحة
-    }
-  } catch (e) {
-    console.error("Failed to load shared list:", e);
-  }
-}
-
-// استدعاء عند فتح الصفحة
-window.addEventListener("load", loadSharedListIfExists);
 
 
 
@@ -1569,6 +1571,7 @@ if (langBtn) {
     renderAll();       // نرسم الواجهة من جديد
   });
 }
+
 
 // =======================
 // Pomodoro Timer
