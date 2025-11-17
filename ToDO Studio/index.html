@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang='AR' dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ToDo Studio App</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+
+  <!-- شريط اقتباس اليوم -->
+<div class="daily-quote-bar">
+  <div class="daily-quote-label">اقتباس اليوم</div>
+  <div class="daily-quote-text" id="daily-quote-text">...</div>
+</div>
+ 
+
+  <!-- شاشة التسجيل الإلزامية لأول مرة -->
+  <div id="auth-overlay" class="overlay hidden">
+    <form id="auth-form" class="card auth-card">
+      <h2>أهلاً بك في ToDo Studio App 👋</h2>
+      <p class="muted">سجّل معلوماتك عشان نضبط لك تجربة خاصة فيك.</p>
+
+      <label>
+        الاسم الكامل
+        <input type="text" id="auth-name" required />
+      </label>
+
+      <label>
+        المرحلة الدراسية
+        <select id="auth-stage" required>
+          <option value="">اختر المرحلة</option>
+          <option value="highschool">ثانوي</option>
+          <option value="university">جامعة</option>
+          <option value="other">أخرى</option>
+        </select>
+      </label>
+
+      <label id="auth-major-wrapper" class="hidden">
+        التخصص (لطلاب الجامعة)
+        <input type="text" id="auth-major" placeholder="مثال: علوم حاسب" />
+      </label>
+
+      <label>
+        البريد الإلكتروني
+        <input type="email" id="auth-email" required />
+      </label>
+
+      <label>
+        كلمة المرور
+        <input type="password" id="auth-password" required minlength="4" />
+      </label>
+
+      <button type="submit" class="btn primary full">ابدأ استخدام التطبيق</button>
+    </form>
+  </div>
+
+  <!-- Snackbar -->
+  <div id="snackbar" class="snackbar"></div>
+
+  <!-- مودال عام للمهام / العادات / غيرها -->
+  <div id="modal-backdrop" class="modal-backdrop hidden">
+    <div id="app-modal" class="modal card">
+      <div class="modal-header">
+        <h3 id="modal-title"></h3>
+        <button id="modal-close" class="icon-btn">&times;</button>
+      </div>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- الشريط العلوي -->
+  <header class="topbar">
+    <div class="topbar-right">
+      <div class="app-logo">TS</div>
+      <div class="app-title">
+        <div class="title">ToDo Studio App</div>
+        <div class="subtitle">Muteb • Student Dashboard</div>
+      </div>
+    </div>
+
+    <div class="topbar-right">
+      <button id="theme-toggle" class="icon-btn" title="تغيير الثيم">🌙</button>
+      <button id="lang-toggle" class="pill small">AR</button>
+      <div class="streak-pill">
+        🔥 <span id="streak-count">0</span> يوم ستريك
+      </div>
+      <div class="user-chip" id="topbar-user">
+        <div class="avatar-circle" id="user-avatar-circle">M</div>
+        <div class="user-info">
+          <div id="user-name-label">متعب</div>
+          <div id="user-stage-label" class="muted tiny">طالب</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- القائمة الجانبية -->
+  <aside class="sidebar">
+    <nav>
+      <button class="nav-item active" data-view="dashboard">🏠 الرئيسية</button>
+      <button class="nav-item" data-view="tasks">📝 المهام</button>
+      <button class="nav-item" data-view="habits">🔁 العادات</button>
+      <button class="nav-item" data-view="focus">🎯 التركيز</button>
+      <button class="nav-item" data-view="diwan">📚 الديوان</button>
+      <button class="nav-item" data-view="tips">💡 نصائح الطالب</button>
+      <button class="nav-item" data-view="calendar">📅 التقويم</button>
+      <button class="nav-item" data-view="study">📘 خطة الطالب</button>
+      <button class="nav-item" data-view="goals">🎖️ الأهداف</button>
+      <button class="nav-item" data-view="profile">👤 البروفايل</button>
+      <button class="nav-item" data-view="settings">⚙️ الإعدادات</button>
+      <button onclick="copyShareLink()">نسخ رابط المشاركة</button>
+<div id="share-status"></div>
+
+    </nav>
+  </aside>
+
+  <!-- المحتوى الأساسي -->
+  <main id="content" class="content"></main>
+
+  <!-- زر الإضافة العائم -->
+  <button id="fab-btn" class="fab">+</button>
+
+  <script src="app.js"></script>
+</body>
+</html>
